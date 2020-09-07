@@ -22,7 +22,7 @@ public class start {
 				menu2();
 				break;
 			case 3:
-				menu2();
+				master();
 				break;
 			default:
 				break;
