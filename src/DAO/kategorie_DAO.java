@@ -59,6 +59,37 @@ public class kategorie_DAO {
 		}
 		return List;
 	}
+	
+	public kategorie_DTO listone(int a) { // 종류 목록 보기
+		String sql = "select * from kategorie where no = ?";
+		PreparedStatement ppst = null;
+		if (conn() != null) {
+			try {
+				ppst = conn.prepareStatement(sql);
+				ppst.setInt(1, a);
+				rs = ppst.executeQuery();
+				kategorie_DTO dto = new kategorie_DTO();
+				if (rs.next()) {
+					dto.setNo(rs.getInt("no"));
+					dto.setName(rs.getString("name"));
+				}
+				return dto;
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.getStackTrace();
+			} finally {
+				try {
+					if (ppst != null)
+						ppst.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
 
 	public void update(String name) {
 		String sql = "insert into kategorie values (seq_hpj.nextval,?)";

@@ -18,7 +18,7 @@ public class kategorie_test {
 	
 	@Test
 	public void t1() {
-		dao.update("만화");
+		dao.update("예능");
 	}
 	@Test
 	public void t2() {
@@ -32,7 +32,7 @@ public class kategorie_test {
 	}
 	@Test
 	public void t3() {
-		dao.delete(2);
+		dao.delete(21);
 	}
 	
 }

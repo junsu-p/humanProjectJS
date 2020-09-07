@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.hamcrest.Condition.Step;
 
 import DTO.member_DTO;
+import DTO.movie_DTO;
 
 public class member_DAO {
 	private Connection conn = null;
@@ -46,9 +47,17 @@ public class member_DAO {
 					dto.setName(rs.getString("name"));
 					dto.setAge(rs.getInt("age"));
 					dto.setGender(rs.getString("gender"));
+					list.add(dto);
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+			}finally {
+				try {
+					if(st != null) st.close();
+					if(conn != null) conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
 			}
 		}
 		return list;
@@ -65,6 +74,7 @@ public class member_DAO {
 				ppst.setString(3, a.getName());
 				ppst.setInt(4, a.getAge());
 				ppst.setString(5, a.getGender());
+				ppst.executeUpdate();
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.getStackTrace();
@@ -79,5 +89,93 @@ public class member_DAO {
 		}
 	}
 	
+	public member_DTO one(String a) {
+		member_DTO dto = new member_DTO();
+		String sql = "select * from member where id = ?";
+		PreparedStatement ppst = null;
+		if(conn() != null) {
+			try {
+				ppst = conn.prepareStatement(sql);
+				ppst.setString(1, a);
+				rs = ppst.executeQuery();
+				if(rs.next()) {
+				dto.setId(rs.getString("id"));
+				dto.setPwd(rs.getString("pwd"));
+				dto.setName(rs.getString("name"));
+				dto.setAge(rs.getInt("age"));
+				dto.setGender(rs.getString("gender"));
+				}
+				return dto;
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.getStackTrace();
+				return null;
+			}finally {
+				try {
+					if(ppst != null) ppst.close();
+					if(conn != null) conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+	
+	public member_DTO cheak(String a,String b) {
+		member_DTO dto = new member_DTO();
+		String sql = "select * from member where id = ? and pwd = ?";
+		PreparedStatement ppst = null;
+		if(conn() != null) {
+			try {
+				ppst = conn.prepareStatement(sql);
+				ppst.setString(1, a);
+				ppst.setString(2, b);
+				rs = ppst.executeQuery();
+				if(rs.next()) {
+				dto.setId(rs.getString("id"));
+				dto.setPwd(rs.getString("pwd"));
+				dto.setName(rs.getString("name"));
+				dto.setAge(rs.getInt("age"));
+				dto.setGender(rs.getString("gender"));
+				}
+				return dto;
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.getStackTrace();
+				return null;
+			}finally {
+				try {
+					if(ppst != null) ppst.close();
+					if(conn != null) conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+	
+	public void delete(String id,String pwd) {
+		String sql = "delete from member where id = ? and pwd = ?";
+		PreparedStatement ppst = null;
+		if(conn() != null) {
+			try {
+				ppst = conn.prepareStatement(sql);
+				ppst.setString(1, id);
+				ppst.setString(2, pwd);
+				ppst.executeUpdate();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}finally {
+				try {
+					if(ppst != null) ppst.close();
+					if(conn != null) conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		}
+	}
 	
 }

@@ -1,6 +1,7 @@
 package DTO;
 
 public class buy_list_DTO {
+	private int no;
 	private String m_id;
 	private int m_no;
 	private String review;
@@ -22,5 +23,12 @@ public class buy_list_DTO {
 	public void setReview(String review) {
 		this.review = review;
 	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	
 	
 }
