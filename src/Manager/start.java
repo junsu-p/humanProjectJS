@@ -33,7 +33,7 @@ public class start {
 
 	public void menu() {
 		System.out.println("1, 회원가입");
-		System.out.println("1, 로그인");
+		System.out.println("2, 로그인");
 		System.out.println("3, 관리자 접속");
 	}
 
